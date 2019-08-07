@@ -1,0 +1,33 @@
+﻿<Window x:Class="hw3107___ObservableCollection__Exirce1_.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:hw3107___ObservableCollection__Exirce1_"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <local:ViewModelForFlights x:Key="vm"/>
+        <local:ButtonSearchConverter x:Key="valueConverterForSearchButton"></local:ButtonSearchConverter>
+    </Window.Resources>
+    <WrapPanel Orientation="Vertical">
+        <TextBox x:Name="FlightNameTxt" Margin="29,62,570,0" TextWrapping="Wrap" Text="AirlineName:" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Top" Height="28" Width="193"/>
+        <Button Content="Show Flight" HorizontalAlignment="Left" Margin="29,10,0,0" VerticalAlignment="Top" Width="193" Height="27" Command="{Binding ShowButton, Source={StaticResource vm}}" CommandParameter="{Binding Text, ElementName=FlightNameTxt}"
+                IsEnabled="{Binding Text, Converter={StaticResource valueConverterForSearchButton}, ElementName=FlightNameTxt}"/>
+        <ComboBox x:Name="myCmbx" Height="83" Margin="0 20" ItemsSource="{Binding Flights, Source={StaticResource vm}, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}" >
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Id}" Margin="20 0"/>
+                        <TextBlock Text="{Binding AirLineCompany_Id}" Margin="20 0"/>
+                        <TextBlock Text="{Binding Origin_Country_Code}" Margin="20 0"/>
+                        <TextBlock Text="{Binding Destination_Country_Code}" Margin="20 0"/>
+                        <TextBlock Text="{Binding Departure_Time}" Margin="20 0"/>
+                        <TextBlock Text="{Binding Landing_Time}" Margin="20 0"/>
+                        <TextBlock Text="{Binding Remaining_Tickets}" Margin="20 0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+    </WrapPanel>
+</Window>
